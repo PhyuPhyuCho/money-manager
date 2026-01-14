@@ -1,5 +1,38 @@
+:root{
+  --bg:#fff6f8;
+  --card:#ffffff;
+  --pink:#f4a3b4;
+  --pink2:#f7b8c5;
+  --text:#2b2b2b;
+  --muted:#6b6b6b;
+  --border:rgba(0,0,0,0.06);
+}
 
-body { margin:0; font-family: system-ui; background:#fff6f8; }
-button { padding:10px; border-radius:12px; border:none; background:#f4a3b4; color:white; }
-.card { background:white; border-radius:16px; padding:12px; margin-bottom:12px; }
-.nav { display:flex; gap:8px; justify-content:center; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.container{max-width:420px;margin:0 auto;padding:16px 14px 90px;}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.h1{font-size:20px;margin:0;color:#c46478;letter-spacing:0.2px;}
+.pillRow{display:flex;gap:8px;justify-content:center;margin:10px 0 14px;}
+.pill{padding:10px 12px;border-radius:14px;border:1px solid var(--border);background:var(--card);cursor:pointer;}
+.pillActive{background:linear-gradient(180deg,var(--pink2),var(--pink));color:white;border:none;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:12px;margin-bottom:12px;box-shadow:0 8px 25px rgba(0,0,0,0.04);}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.big{font-size:22px;font-weight:700;}
+.muted{color:var(--muted);font-size:12px;}
+.btn{width:100%;padding:12px 14px;border:none;border-radius:14px;background:var(--pink);color:white;font-weight:600;cursor:pointer;}
+.btn2{padding:10px 12px;border:none;border-radius:14px;background:#fff; border:1px solid var(--border);cursor:pointer;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.input{
+  width:100%;padding:12px 12px;border-radius:14px;border:1px solid var(--border);
+  background:#fff;outline:none;font-size:16px;
+}
+label{font-size:12px;color:var(--muted);display:block;margin:10px 0 6px;}
+.warning{background:#ffe9ee;border:1px solid rgba(244,163,180,0.5);border-radius:16px;padding:10px;margin-bottom:12px;}
+.bar{height:10px;border-radius:999px;background:rgba(244,163,180,0.25);overflow:hidden;}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--pink2),var(--pink));}
