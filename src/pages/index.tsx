@@ -1,73 +1,42 @@
 
 'use client';
-import { v4 as uuid } from "uuid";
-import { useState } from "react";
-import { useLiveQuery } from "dexie-react-hooks";
-import { localdb, Income, Expense, Saving } from "@/lib/localdb";
+import {useState} from 'react';
+import {useLiveQuery} from 'dexie-react-hooks';
+import {localdb} from '@/lib/localdb';
+import {BarChart,Bar,XAxis,YAxis} from 'recharts';
 
-export default function Home() {
-  const [month] = useState(new Date().toISOString().slice(0,7));
+export default function Home(){
+  const [mode,setMode]=useState<'month'|'year'|'all'>('month');
+  const rows=useLiveQuery(()=>localdb.rows.toArray(),[]);
+  const total=(rows||[]).reduce((s,r)=>s+r.amount,0);
 
-  const incomes = useLiveQuery(() => localdb.incomes.toArray(), []);
-  const expenses = useLiveQuery(() => localdb.expenses.toArray(), []);
-  const savings = useLiveQuery(() => localdb.savings.toArray(), []);
-
-  const incomeTotal = (incomes||[]).filter(i=>i.date.startsWith(month)&&!i.deleted)
-    .reduce((s,i)=>s+i.amount,0);
-  const expenseTotal = (expenses||[]).filter(e=>e.date.startsWith(month)&&!e.deleted)
-    .reduce((s,e)=>s+e.amount,0);
-  const savingTotal = (savings||[]).filter(sv=>sv.date.startsWith(month)&&!sv.deleted)
-    .reduce((s,sv)=>s+sv.amount,0);
-
-  const balance = incomeTotal - expenseTotal - savingTotal;
-
-  async function addIncome() {
-    await localdb.incomes.add({
-      id: uuid(),
-      date: new Date().toISOString().slice(0,10),
-      amount: 100000,
-      source: "Salary",
-      updatedAt: Date.now()
-    } as Income);
-  }
-
-  async function addExpense() {
-    await localdb.expenses.add({
-      id: uuid(),
-      date: new Date().toISOString().slice(0,10),
-      amount: 20000,
-      category: "Food",
-      type: "other",
-      updatedAt: Date.now()
-    } as Expense);
-  }
-
-  async function addSaving() {
-    await localdb.savings.add({
-      id: uuid(),
-      date: new Date().toISOString().slice(0,10),
-      amount: 30000,
-      place: "Bank",
-      updatedAt: Date.now()
-    } as Saving);
-  }
+  const chartData=[
+    {name:'Income',value:120000},
+    {name:'Expense',value:70000},
+    {name:'Savings',value:30000}
+  ];
 
   return (
     <main style={{padding:16}}>
       <h1>Money Manager</h1>
-      <section>
-        <h3>{month} Summary</h3>
-        <p>Income: ¥{incomeTotal}</p>
-        <p>Expenses: ¥{expenseTotal}</p>
-        <p>Savings: ¥{savingTotal}</p>
-        <p><b>Balance: ¥{balance}</b></p>
-      </section>
+      <div className="nav">
+        <button onClick={()=>setMode('month')}>Monthly</button>
+        <button onClick={()=>setMode('year')}>Yearly</button>
+        <button onClick={()=>setMode('all')}>All</button>
+      </div>
 
-      <section>
-        <button onClick={addIncome}>+ Add Income (sample)</button>
-        <button onClick={addExpense}>+ Add Expense (sample)</button>
-        <button onClick={addSaving}>+ Add Saving (sample)</button>
-      </section>
+      <div className="card">
+        <h3>{mode.toUpperCase()} SUMMARY</h3>
+        <p>Total: ¥{total}</p>
+      </div>
+
+      <div className="card">
+        <BarChart width={300} height={200} data={chartData}>
+          <XAxis dataKey="name"/>
+          <YAxis/>
+          <Bar dataKey="value" fill="#f4a3b4"/>
+        </BarChart>
+      </div>
     </main>
   );
 }

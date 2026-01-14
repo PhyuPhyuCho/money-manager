@@ -1,4 +1,5 @@
 
-body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto; }
-input, select, button { padding:8px; }
-section { margin-bottom:24px; }
+body { margin:0; font-family: system-ui; background:#fff6f8; }
+button { padding:10px; border-radius:12px; border:none; background:#f4a3b4; color:white; }
+.card { background:white; border-radius:16px; padding:12px; margin-bottom:12px; }
+.nav { display:flex; gap:8px; justify-content:center; }

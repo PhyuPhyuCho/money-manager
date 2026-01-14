@@ -1,10 +1,9 @@
 
 const repo = "money-manager";
-const nextConfig = {
+module.exports = {
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
   basePath: `/${repo}`,
-  assetPrefix: `/${repo}/`,
+  assetPrefix: `/${repo}/`
 };
-module.exports = nextConfig;
