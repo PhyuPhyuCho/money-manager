@@ -1,5 +1,5 @@
+
 const repo = "money-manager";
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
   trailingSlash: true,
