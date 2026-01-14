@@ -1,0 +1,12 @@
+:root{
+  --bg:#ffffff;
+  --card:#fafafa;
+  --border:#e8e8e8;
+  --text:#111;
+  --muted:#666;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+a{color:inherit}
+button{cursor:pointer}
+input,select,button{font:inherit}
